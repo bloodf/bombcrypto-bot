@@ -356,15 +356,19 @@ def login():
     if login_attempts > 0:
         logger(f'Loggins attempts: {login_attempts}. Bot will refresh page after 2 attempts.')
 
-    if login_attempts > 1:
+    if login_attempts > 4:
         logger('🔃 Too many login attempts, refreshing')
         login_attempts = 0
         pyautogui.hotkey('ctrl', 'f5')
         return
 
     if clickBtn(images['connect-wallet'], name='connectWalletBtn', timeout=10):
-        logger('🎉 Connect wallet button detected, logging in!')
+        logger('🟧 Connect wallet button detected, logging in!')
         login_attempts += 1
+
+    if clickBtn(images['button-connect-modal'], timeout=10):
+        logger('👤 Connect button detected in modal login, logging in!')
+        login_attempts = login_attempts + 1
 
     if clickBtn(images['select-wallet-2'], name='sign button', timeout=8):
         # sometimes the sign popup appears imediately
@@ -519,19 +523,20 @@ def main():
                 if not check_login(images['network']):
                     if not check_login(images['ok']):
                         if not check_login(images['connect-wallet']):
-                            if not check_login(images['treasure-hunt-icon']):
-                                if not check_login(images['go-back-arrow']):
-                                    if not check_login(images['x']):
-                                        logger('Black Screen Found. Reseting Browser')
-                                        last["window"].activate()
-                                        pyautogui.hotkey('ctrl', 'f5')
-                                        time.sleep(10)
-                                    else:
-                                        clickBtn(images['x'])
-                                        logged = True
+                            if not check_login(images['button-connect-modal']):
+                                if not check_login(images['treasure-hunt-icon']):
+                                    if not check_login(images['go-back-arrow']):
+                                        if not check_login(images['x']):
+                                            logger('Black Screen Found. Reseting Browser')
+                                            last["window"].activate()
+                                            pyautogui.hotkey('ctrl', 'f5')
+                                            time.sleep(10)
+                                        else:
+                                            clickBtn(images['x'])
+                                            logged = True
 
-                                else:
-                                    logged = True
+                                    else:
+                                        logged = True
                             else:
                                 logged = True
                         else:
