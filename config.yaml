@@ -10,7 +10,7 @@
     #
     # [pt_BR] Intervalo de tempo para verificar se há heróis disponíveis para trabalhar
     # Valor padrão (em minutos): 10
-    send_heroes_for_work: 10
+    send_heroes_for_work: 20
     
     # [en_US] Time interval to update heroes position in the map,
     # Default value (in minutes): 3
@@ -129,7 +129,7 @@
   # all   = seleciona todos os heróis (independente da barra de stamina)
   # green = seleciona os heróis com a barra de stamina verde (metade ou cheia)
   # full  = seleciona somente os heróis com a barra de stamina cheia
-  select_heroes_mode: "green"
+  select_heroes_mode: "all"
 
   # [en_US] Option to limit how many heroes are sent to work at each verification time
   # Default value: 0
